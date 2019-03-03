@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Polk Farody
- * Date: 4/03/2019
- * Time: 9:24 AM
- */
 
 namespace Delivery\Response;
 

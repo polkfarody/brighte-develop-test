@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Polk Farody
- * Date: 3/03/2019
- * Time: 3:24 PM
- */
 
 namespace App\Tests\Delivery\Factory;
 

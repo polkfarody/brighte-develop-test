@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Polk Farody
- * Date: 27/02/2019
- * Time: 10:14 PM
- */
 
 namespace Domain\Collection;
 

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Polk Farody
- * Date: 1/03/2019
- * Time: 4:24 PM
- */
 
 namespace App\Tests\Domain\Exception;
 
