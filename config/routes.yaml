@@ -1,0 +1,3 @@
+app_delivery_process:
+  path: /delivery/process
+  controller: App\Controller\DeliveryController::process
