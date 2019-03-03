@@ -22,7 +22,7 @@ class JsonDeliveryOrderResponse implements DeliveryOrderResponseInterface {
     }
 
     public function getJSON() {
-
+        return json_encode($this->getData());
     }
 
     public function getData() {

@@ -72,4 +72,8 @@ JSON;
 }
 ]
 JSON;
+
+    public static $invoiceJson = <<<JSON
+[{"invoiceId":18,"invoiceNo":"INV0000000018","deliveryOrder":{"customer":{"name":"Sally","address":"Address"},"deliveryType":"personalDelivery","source":"The Source","weight":300},"billingInfo":"Address"}]
+JSON;
 }

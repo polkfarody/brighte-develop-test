@@ -42,7 +42,8 @@ class EnterpriseDeliveryOrderMapperTest extends TestCase {
                     'name' => 'Mary Director',
                     'address' => '44 Director Boulevard'
                 ]
-            ]
+            ],
+            'valid' => 0
         ]
     ];
 

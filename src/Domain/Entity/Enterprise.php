@@ -107,13 +107,8 @@ class Enterprise implements ValidatableInterface {
         return $this->valid;
     }
 
-    public function setValid() : ValidatableInterface {
-        $this->valid = true;
-        return $this;
-    }
-
-    public function setInvalid() : ValidatableInterface {
-        $this->valid = false;
+    public function setValid(bool $valid) : ValidatableInterface {
+        $this->valid = $valid;
         return $this;
     }
 
@@ -144,11 +139,13 @@ class Enterprise implements ValidatableInterface {
             'name' => $this->name,
             'type' => $this->type,
             'abn'  => $this->abn,
-            'directors' => $this->unloadDirectors()
+            'directors' => $this->unloadDirectors(),
+            'valid' => $this->isValid() ? 1 : 0
         ];
     }
 
     public function load(array $array) : Enterprise {
+        $this->setValid(($array['valid'] ?? false) != false);
         return $this->setName($array['name'])
             ->setType($array['type'])
             ->setAbn($array['abn'])

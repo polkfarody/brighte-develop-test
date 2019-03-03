@@ -4,7 +4,6 @@ namespace App\Delivery\Validate;
 
 use App\Delivery\Stub\EnterpriseDeliveryApiStub;
 use App\Domain\Entity\DeliveryOrderInterface;
-use App\Domain\Response\DeliveryOrderResponse;
 use App\Domain\Validate\ValidatorInterface;
 
 class EnterpriseOrderValidator implements ValidatorInterface {
@@ -21,11 +20,7 @@ class EnterpriseOrderValidator implements ValidatorInterface {
         $this->api->setPayload($object->getEnterprise());
         $value = $this->api->send();
 
-        if ($value) {
-            $object->getEnterprise()->setValid();
-        } else {
-            $object->getEnterprise()->setInvalid();
-        }
+        $object->getEnterprise()->setValid($value);
 
         return $object->getEnterprise()->isValid();
     }

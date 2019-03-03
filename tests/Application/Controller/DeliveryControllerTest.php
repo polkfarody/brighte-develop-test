@@ -43,10 +43,21 @@ class DeliveryControllerTest extends TestCase {
 
         $response = $this->controller->process($request);
 
-        var_dumP($response); exit;
-
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals(JsonResponse::HTTP_OK, $response->getStatusCode());
+
+        // Check JSON response.
+        $responseArray = json_decode($response->getContent(), true);
+        $this->assertEquals('success', $responseArray['status']);
+        $this->assertEquals('Deliveries processed successfully', $responseArray['message']);
+
+        $this->assertArrayHasKey('invoices', $responseArray);
+        foreach ($responseArray['invoices'] as $invoice) {
+            $this->assertGreaterThan(0, (int) $invoice['invoiceId']);
+            if (isset($invoice['deliveryOrder']['enterprise'])) {
+                $this->assertArrayHasKey('valid', $invoice['deliveryOrder']['enterprise']);
+            }
+        }
     }
 
     public function testProcessWithNoJson() {

@@ -23,18 +23,27 @@ insight into your problem solving process and your understanding of the OOP.
 - Please deliver the code via a public version control repository.
 
 ## Method
-
-I decided to take a DDD approach to keep the logic that processes the request completely 
-separate from the application. The "Domain" does not know or need to know anything about the
-application. This approach allows the Delivery Order Service to be run from anywhere as long as the
-appropriate objects are parsed into the Delivery Order Service.
+This script has 3 levels of code. 
+1. Controller to receive the http request.
+2. A use case which performs an action using the domain.
+3. The domain to execute the use case and return a response back down the chain.
 
 ## API Workflow
-
-**Prerequisites** 
-
-Have a web server setup with an endpoint to perform this action.
 1. Receive HTTP Request
 2. Validate JSON
-3. Create a Delivery Order Request Type (In this case JsonDeliveryOrderRequest)
-4. Create a Delivery Order Service using the DeliveryOrderRequest
+3. Instantiate Delivery Order Container Factory
+4. Create a new delivery order request
+5. Pass the request to the delivery order service
+6. Process the delivery order following instructions above
+7. Return Generated invoices using service process method
+
+## Instructions
+**Option #1**
+
+
+Run: `php framework_independent_test.php` to generate a json response based 
+on data in `tests/DummyJson.php`
+
+**Option #2**
+
+With Symfony framework included in your composer.json, go to URL `http.../delivery/process`
