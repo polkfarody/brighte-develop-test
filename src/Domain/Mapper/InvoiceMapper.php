@@ -5,6 +5,7 @@ namespace App\Domain\Mapper;
 use App\Domain\Entity\InvoiceInterface;
 use App\Domain\Factory\DeliveryOrderMapperFactory;
 use App\Domain\Factory\InvoiceFactory;
+use App\Domain\ValueObject\DeliveryType;
 
 class InvoiceMapper implements MapperInterface {
 
@@ -37,7 +38,12 @@ class InvoiceMapper implements MapperInterface {
      * @throws \Exception
      */
     public function toObject(array $array) {
-        $deliveryOrder = $this->deliveryOrderFactory->toObject($array['deliveryOrder']);
-        return $this->factory->create($deliveryOrder);
+        $deliveryOrderFactory = $this->mapperFactory->create(new DeliveryType($array['deliveryOrder']['deliveryType']));
+        $deliveryOrder = $deliveryOrderFactory->toObject($array['deliveryOrder']);
+
+        $invoice = $this->factory->create($deliveryOrder);
+        $invoice->setId($array['invoiceId']);
+
+        return $invoice;
     }
 }

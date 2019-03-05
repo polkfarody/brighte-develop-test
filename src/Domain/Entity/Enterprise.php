@@ -5,6 +5,7 @@ namespace App\Domain\Entity;
 use App\Domain\Collection\ContactArrayCollection;
 use App\Domain\Validate\ValidatableInterface;
 use App\Domain\ValueObject\Contact;
+use App\Domain\Util\ArrayKeyValues;
 
 class Enterprise implements ValidatableInterface {
     /**
@@ -42,7 +43,7 @@ class Enterprise implements ValidatableInterface {
     /**
      * @return string
      */
-    public function getName(): string {
+    public function getName(): ?string {
         return $this->name;
     }
 
@@ -58,7 +59,7 @@ class Enterprise implements ValidatableInterface {
     /**
      * @return string
      */
-    public function getType(): string {
+    public function getType(): ?string {
         return $this->type;
     }
 
@@ -74,7 +75,7 @@ class Enterprise implements ValidatableInterface {
     /**
      * @return string
      */
-    public function getAbn(): string {
+    public function getAbn(): ?string {
         return $this->abn;
     }
 
@@ -90,7 +91,7 @@ class Enterprise implements ValidatableInterface {
     /**
      * @return ContactArrayCollection
      */
-    public function getDirectors(): ContactArrayCollection {
+    public function getDirectors(): ?ContactArrayCollection {
         return $this->directors;
     }
 
@@ -126,8 +127,9 @@ class Enterprise implements ValidatableInterface {
 
     public function loadDirectors(array $directors = []) : ContactArrayCollection {
         $contacts = [];
-
         foreach ($directors as $director) {
+            ArrayKeyValues::validate(['name' => 'string', 'address' => 'string'], $director);
+
             $contacts[] = new Contact($director['name'], $director['address']);
         }
 
@@ -144,11 +146,26 @@ class Enterprise implements ValidatableInterface {
         ];
     }
 
+    /**
+     * @param array $array
+     * @throws InvalidArgumentException
+     */
     public function load(array $array) : Enterprise {
-        $this->setValid(($array['valid'] ?? false) != false);
-        return $this->setName($array['name'])
-            ->setType($array['type'])
-            ->setAbn($array['abn'])
-            ->setDirectors($this->loadDirectors($array['directors']));
+        $reqKeys = [
+            'name' => 'string', 
+            'type' => 'string', 
+            'abn' => 'string',
+            'directors' => 'array'
+        ];
+
+        ArrayKeyValues::validate($reqKeys, $array, function($reqKey, $value) {
+            $this->{$reqKey} = $value;
+        });
+
+        // Special case for directors and valid
+        $this->directors = $this->loadDirectors($array['directors']);    
+        $this->valid = ($array['valid'] ?? false) != false;
+
+        return $this;      
     }
 }

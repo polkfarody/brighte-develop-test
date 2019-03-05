@@ -6,11 +6,11 @@ use App\Domain\ValueObject\Contact;
 use App\Domain\ValueObject\DeliveryType;
 
 interface DeliveryOrderInterface {
-    public function getCustomer() : Contact;
-    public function getSource() : string;
-    public function getDeliveryType() : DeliveryType;
-    public function getWeight() : int;
-    public function getOnBehalf() : ? string;
+    public function getCustomer() : ?Contact;
+    public function getSource() : ?string;
+    public function getDeliveryType() : ?DeliveryType;
+    public function getWeight() : ?int;
+    public function getOnBehalf() : ?string;
     public function setCustomer(Contact $contact) : DeliveryOrderInterface;
     public function setSource(string $source) : DeliveryOrderInterface;
     public function setDeliveryType(DeliveryType $deliveryType) : DeliveryOrderInterface;

@@ -57,7 +57,7 @@ class EnterpriseDeliveryOrder implements EnterpriseDeliveryOrderInterface, Deliv
     /**
      * @return Contact
      */
-    public function getCustomer(): Contact {
+    public function getCustomer(): ?Contact {
         return $this->customer;
     }
 
@@ -73,7 +73,7 @@ class EnterpriseDeliveryOrder implements EnterpriseDeliveryOrderInterface, Deliv
     /**
      * @return DeliveryType
      */
-    public function getDeliveryType(): DeliveryType {
+    public function getDeliveryType(): ?DeliveryType {
         return $this->deliveryType;
     }
 
@@ -89,7 +89,7 @@ class EnterpriseDeliveryOrder implements EnterpriseDeliveryOrderInterface, Deliv
     /**
      * @return String
      */
-    public function getSource(): String {
+    public function getSource(): ?String {
         return $this->source;
     }
 
@@ -105,7 +105,7 @@ class EnterpriseDeliveryOrder implements EnterpriseDeliveryOrderInterface, Deliv
     /**
      * @return int
      */
-    public function getWeight(): int {
+    public function getWeight(): ?int {
         return $this->weight;
     }
 
@@ -122,7 +122,7 @@ class EnterpriseDeliveryOrder implements EnterpriseDeliveryOrderInterface, Deliv
         return $this->deliveryType->isExpress();
     }
 
-    public function getEnterprise(): Enterprise {
+    public function getEnterprise(): ?Enterprise {
         return $this->enterprise;
     }
 

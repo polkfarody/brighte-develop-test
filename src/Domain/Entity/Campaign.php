@@ -3,6 +3,7 @@
 namespace App\Domain\Entity;
 
 use App\Domain\Notifier\NotifierObjectInterface;
+use App\Domain\Util\ArrayKeyValues;
 
 class Campaign implements NotifierObjectInterface {
     /**
@@ -23,7 +24,7 @@ class Campaign implements NotifierObjectInterface {
     /**
      * @var bool
      */
-    protected $notified;
+    protected $notified = false;
 
     public function __construct(
         string $name = null,
@@ -38,7 +39,7 @@ class Campaign implements NotifierObjectInterface {
     /**
      * @return string
      */
-    public function getName(): string {
+    public function getName(): ?string {
         return $this->name;
     }
 
@@ -54,7 +55,7 @@ class Campaign implements NotifierObjectInterface {
     /**
      * @return string
      */
-    public function getType(): string {
+    public function getType(): ?string {
         return $this->type;
     }
 
@@ -70,7 +71,7 @@ class Campaign implements NotifierObjectInterface {
     /**
      * @return string
      */
-    public function getAd(): string {
+    public function getAd(): ?string {
         return $this->ad;
     }
 
@@ -83,10 +84,20 @@ class Campaign implements NotifierObjectInterface {
         return $this;
     }
 
-    public function load(array $array) {
-        $this->setName($array['name'])
-             ->setType($array['type'])
-             ->setAd($array['ad']);
+    /**
+     * @param array $array
+     * @throws InvalidArgumentException
+     */
+    public function load(array $array) : void {
+        $reqKeys = [
+            'name' => 'string', 
+            'type' => 'string', 
+            'ad' => 'string'
+        ];
+
+        ArrayKeyValues::validate($reqKeys, $array, function($reqKey, $value) {
+            $this->{$reqKey} = $value;
+        });
     }
 
     public function setNotified(bool $notified): NotifierObjectInterface {
@@ -97,6 +108,4 @@ class Campaign implements NotifierObjectInterface {
     public function isNotified(): bool {
         return $this->notified;
     }
-
-
 }

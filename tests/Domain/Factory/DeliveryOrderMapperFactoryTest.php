@@ -11,20 +11,19 @@ use PHPUnit\Framework\TestCase;
 class DeliveryOrderMapperFactoryTest extends TestCase {
 
     protected $deliveryTypes = [];
-    protected $factory;
 
     public function setUp() : void {
         $this->deliveryTypes['enterprise'] = new DeliveryType('enterpriseDelivery');
         $this->deliveryTypes['personal'] = new DeliveryType('personalDelivery');
-
-        $this->factory = new DeliveryOrderMapperFactory();
     }
 
     public function testCreate() {
-        $enterprise_order = $this->factory->create($this->deliveryTypes['enterprise']);
+        $factory = new DeliveryOrderMapperFactory();
+
+        $enterprise_order = $factory->create($this->deliveryTypes['enterprise']);
         $this->assertInstanceOf(EnterpriseDeliveryOrderMapper::class, $enterprise_order);
 
-        $personal_order = $this->factory->create($this->deliveryTypes['personal']);
+        $personal_order = $factory->create($this->deliveryTypes['personal']);
         $this->assertInstanceOf(PersonalDeliveryOrderMapper::class, $personal_order);
     }
 }

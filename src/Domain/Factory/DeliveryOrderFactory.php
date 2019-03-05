@@ -17,18 +17,18 @@ class DeliveryOrderFactory {
      * Returns a DeliveryOrder based on specified DeliveryType
      * @param DeliveryType $type
      * @return DeliveryOrderInterface
-     * @throws InvalidDeliveryTypeException
      */
     public function create(DeliveryType $type) : DeliveryOrderInterface {
+        $order = null;
         switch ($type->getType()) {
             case 'enterprise':
-                return new EnterpriseDeliveryOrder($type);
+                $order = new EnterpriseDeliveryOrder($type);
                 break;
             case 'personal':
-                return new PersonalDeliveryOrder($type);
+                $order = new PersonalDeliveryOrder($type);
                 break;
         }
 
-        throw new InvalidDeliveryTypeException($type->getType());
+        return $order;
     }
 }

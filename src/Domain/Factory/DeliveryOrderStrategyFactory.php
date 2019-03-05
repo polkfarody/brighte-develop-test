@@ -15,20 +15,20 @@ class DeliveryOrderStrategyFactory {
      * @throws InvalidDeliveryTypeException
      */
     public function create(DeliveryType $type) : DeliveryOrderStrategyInterface {
+        $strategy = null;
         switch ($type->getType()) {
             case 'personal':
-                return new PersonalDeliveryOrderStrategy(
+                $strategy = new PersonalDeliveryOrderStrategy(
                     new InvoiceFactory()
                 );
                 break;
             case 'enterprise':
-                return new EnterpriseDeliveryOrderStrategy(
+                $strategy = new EnterpriseDeliveryOrderStrategy(
                     new InvoiceFactory()
                 );
                 break;
-            default:
-                throw new InvalidDeliveryTypeException($type->getType());
-                break;
         }
+
+        return $strategy;
     }
 }

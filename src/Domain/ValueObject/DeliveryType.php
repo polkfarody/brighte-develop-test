@@ -33,11 +33,14 @@ final class DeliveryType {
     }
 
     public function getType() {
+        $type = null;
         if (stripos($this->type, 'enterprise') === 0) {
-            return 'enterprise';
+            $type = 'enterprise';
         } elseif (stripos($this->type, 'personal') === 0) {
-            return 'personal';
+            $type = 'personal';
         }
+
+        return $type;
     }
 
 

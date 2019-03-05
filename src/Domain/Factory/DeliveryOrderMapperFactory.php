@@ -14,20 +14,21 @@ use App\Domain\ValueObject\DeliveryType;
  */
 class DeliveryOrderMapperFactory {
     public function create(DeliveryType $type) : MapperInterface {
+        $mapper = null;
         switch ($type->getType()) {
             case 'enterprise':
-                return new EnterpriseDeliveryOrderMapper(
+                $mapper = new EnterpriseDeliveryOrderMapper(
                     new DeliveryOrderFactory(),
                     new EnterpriseFactory()
                 );
                 break;
             case 'personal':
-                return new PersonalDeliveryOrderMapper(
+                $mapper = new PersonalDeliveryOrderMapper(
                     new DeliveryOrderFactory()
                 );
                 break;
         }
 
-        throw new InvalidDeliveryTypeException($type->getType());
+        return $mapper;
     }
 }
