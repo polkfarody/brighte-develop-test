@@ -8,8 +8,8 @@ or application independent services.
 
 The **src/** directory is split up into 3 sections. 
 - **Controller/**: This is used to accept a HTTP POST requests through URI "/delivery/process" with a JSON payload) .
-- **Delivery**: This is the Use Case and the bridge between the application (controller) and the domain (service).
-- **Domain**: This is the service that does all of the heavy lifting, this processes the deliveries and returns invoices
+- **Delivery/**: This is the Use Case and the bridge between the application (controller) and the domain (service).
+- **Domain/**: This is the service that does all of the heavy lifting, this processes the deliveries and returns invoices
 
 #### src/Controller/DeliveryController.php
 
