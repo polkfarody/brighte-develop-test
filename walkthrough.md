@@ -94,6 +94,10 @@ are being loaded.
 These four directories do not contain any instantiable classes. This is because they need to be created in the UseCase. 
 Each directory contains Interfaces that must be implemented.
 
+#### src/Domain/Strategy/*
+
+The strategy is what we want the service to do. In this case we want to generate an invoice using the DeliveryOrderStrategyInterface.
+
 #### src/Domain/Service/ProcessDeliveryOrderService.php
 
 This is the processor. This class runs through all of the ingredients in the delivery order factory and processes each 
